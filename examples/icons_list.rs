@@ -10,7 +10,7 @@ impl Render for Example {
             .size_full()
             .flex()
             .child(Icon::new(LucideIcon::Play).text_color(cx.theme().red))
-            .child(Icon::new(LucideIcon::Armchair))
+            .child(Icon::new(LucideIcon::ArrowUp10))
     }
 }
 

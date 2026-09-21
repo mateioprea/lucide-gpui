@@ -23,24 +23,24 @@ fn main() {
                 .split("-")
                 .map(upper_case_first_letter)
                 .collect::<Vec<_>>()
-                .join("_");
+                .join("");
             (new_file_name, icon_path.to_str().unwrap().to_string())
         })
         .collect::<Vec<_>>();
 
-    parsed_icons.sort_by(|a, b| a.0.cmp(&b.0));
-    generated_source.push_str("#[allow(non_camel_case_types)]\n");
+    parsed_icons.sort();
+    parsed_icons.dedup_by(|later, earlier| later.0 == earlier.0);
     generated_source.push_str("#[derive(Clone, Copy, Debug, PartialEq, Eq)]\n");
     generated_source.push_str("pub enum LucideIcon {\n");
 
-    for (new_file_name, _) in parsed_icons.clone() {
+    for (new_file_name, _) in &parsed_icons {
         generated_source.push_str(&format!("    {new_file_name},\n"));
     }
     generated_source.push_str("}\n");
     generated_source.push_str(
         "impl gpui_kit::component::IconNamed for LucideIcon {\n    fn path(self) -> gpui_kit::SharedString {\n           match self {\n",
     );
-    for (new_file_name, icon_path) in parsed_icons.clone() {
+    for (new_file_name, icon_path) in &parsed_icons {
         generated_source.push_str(&format!(
             "               LucideIcon::{new_file_name} => \"lucide_icons/{}\",\n",
             icon_path
@@ -50,5 +50,5 @@ fn main() {
     let out_dir = std::env::var("OUT_DIR").unwrap();
     let mut file = File::create(format!("{}/lucide_icons.rs", out_dir)).unwrap();
     file.write_all(generated_source.as_bytes()).unwrap();
-    println!("cargo:rerun-if-changed=icons");
+    println!("cargo:rerun-if-changed=lucide_icons");
 }
