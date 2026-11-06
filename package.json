@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/node": "^26.6.2",
-    "lucide-static": "^1.47.0",
+    "lucide-static": "^1.70.0",
     "tsx": "^4.23.13",
     "typescript": "^7.0.2"
   }

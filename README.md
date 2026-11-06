@@ -10,7 +10,7 @@ Use Lucide icons in your GPUI applications with ease!
 
 **📦 Embedded in your binary**
 
-All 2,108 icons are compiled into your application. There are no asset folders to ship and nothing to load from disk at runtime.
+All 2,322 icons are compiled into your application. There are no asset folders to ship and nothing to load from disk at runtime.
 
 **🔤 Type-safe names**
 
@@ -181,12 +181,12 @@ The SVG files in `lucide_icons/` are copied from the `lucide-static` npm package
 ```
 yarn add lucide-static@latest
 yarn generate-icons
-cargo build
+cargo build --release
 ```
 
 `yarn generate-icons` copies the SVG files into `lucide_icons/`. `cargo build` then regenerates the `LucideIcon` enum from whatever files are in that folder, so new icons appear as new variants automatically.
 
-This version was generated from `lucide-static` **1.47.0**.
+This version was generated from `lucide-static` **1.70.0**.
 
 ## A note on AI
 
